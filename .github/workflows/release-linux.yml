@@ -26,7 +26,7 @@ jobs:
 
       - name: Build Linux binary
         run: |
-          GOOS=linux GOARCH=amd64 go build ./...
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./...
 
   build-and-release:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Build Linux binary
         run: |
           mkdir -p "${OUTPUT_DIR}"
-          GOOS=linux GOARCH=amd64 go build -o "${OUTPUT_DIR}/${BINARY_NAME}" .
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "${OUTPUT_DIR}/${BINARY_NAME}" .
 
       - name: Create tarball
         run: |

@@ -17,11 +17,11 @@
 ```
 make build-linux
 ```
-The binary is written to `bin/filewatcher-exporter` with `GOARCH` defaulting to `amd64`. Override by passing `GOARCH=arm64` (or another architecture) to `make`.
+This builds with `CGO_ENABLED=0` for a static binary. The binary is written to `bin/filewatcher-exporter` with `GOARCH` defaulting to `amd64`. Override by passing `GOARCH=arm64` (or another architecture) to `make`.
 
 ### Run Locally
 ```
-go run . --dirs "/tmp:/var/log" --web.listen-address ":9100" --web.config.file web-config.yml
+CGO_ENABLED=0 go run . --dirs "/tmp:/var/log" --web.listen-address ":9100" --web.config.file web-config.yml
 ```
 - `--dirs` accepts a colon-separated list of directories to watch.
 - `--web.listen-address` controls the HTTP address (defaults to `:9000`).

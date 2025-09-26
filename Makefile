@@ -5,7 +5,7 @@ BINARY := bin/filewatcher-exporter
 
 build-linux:
 	@mkdir -p $(dir $(BINARY))
-	GOOS=linux GOARCH=$(GOARCH) go build -o $(BINARY) .
+	CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -o $(BINARY) .
 
 clean:
 	rm -f $(BINARY)
