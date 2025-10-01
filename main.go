@@ -17,7 +17,8 @@ import (
 )
 
 var (
-	dirs         = kingpin.Flag("dirs", "Colon-separated list of directories to watch").Default("/tmp").String()
+	dirs         = kingpin.Flag("dirs", "Colon-separated list of directories to watch").Required().String()
+	recursive    = kingpin.Flag("recursive", "Watch directories recursively").Bool()
 	toolkitFlags = kingpinflag.AddFlags(kingpin.CommandLine, ":9000")
 
 	lastWriteTimestamp = prometheus.NewGaugeVec(
@@ -33,7 +34,16 @@ func recordLastWrite(dir string) {
 	lastWriteTimestamp.WithLabelValues(dir).Set(float64(time.Now().Unix()))
 }
 
-func addWatchers(w *fsnotify.Watcher, root string) error {
+func addWatchers(w *fsnotify.Watcher, root string, recursive bool) error {
+	if !recursive {
+		if err := w.Add(root); err != nil {
+			log.Printf("Failed to watch %s: %v", root, err)
+			return err
+		}
+		log.Printf("Watching %s", root)
+		return nil
+	}
+
 	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -49,14 +59,14 @@ func addWatchers(w *fsnotify.Watcher, root string) error {
 	})
 }
 
-func watchRecursive(root string) {
+func watchDirectory(root string, recursive bool) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatalf("Failed to create watcher: %v", err)
 	}
 	defer watcher.Close()
 
-	if err := addWatchers(watcher, root); err != nil {
+	if err := addWatchers(watcher, root, recursive); err != nil {
 		log.Fatalf("Failed to add watchers: %v", err)
 	}
 
@@ -71,10 +81,10 @@ func watchRecursive(root string) {
 				recordLastWrite(root)
 			}
 			// If a new directory is created, add a watcher for it
-			if event.Op&fsnotify.Create != 0 {
+			if recursive && event.Op&fsnotify.Create != 0 {
 				fi, err := os.Stat(event.Name)
 				if err == nil && fi.IsDir() {
-					if err := addWatchers(watcher, event.Name); err != nil {
+					if err := addWatchers(watcher, event.Name, recursive); err != nil {
 						log.Printf("Failed to add watcher for new dir %s: %v", event.Name, err)
 					}
 				}
@@ -97,7 +107,7 @@ func main() {
 	registry.MustRegister(lastWriteTimestamp)
 
 	for _, d := range directories {
-		go watchRecursive(d)
+		go watchDirectory(d, *recursive)
 	}
 
 	mux := http.NewServeMux()

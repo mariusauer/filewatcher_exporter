@@ -59,6 +59,7 @@ Tagging with the pattern `v*` triggers the GitHub Actions workflow defined in `.
 
 ## Flags
 
-- `--dirs` (string, default `/tmp`): colon-separated directories to watch.
+- `--dirs` (string, required): colon-separated directories to watch.
+- `--recursive` (bool, default `false`): whether to watch directories recursively.
 - `--web.listen-address` (string, default `:9000`): exporter listen address.
 - `--web.config.file` (string): path to exporter-toolkit web config file.
