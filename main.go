@@ -19,7 +19,7 @@ import (
 var (
 	dirs         = kingpin.Flag("dirs", "Colon-separated list of directories to watch").Required().String()
 	recursive    = kingpin.Flag("recursive", "Watch directories recursively").Bool()
-	toolkitFlags = kingpinflag.AddFlags(kingpin.CommandLine, ":9000")
+	toolkitFlags = kingpinflag.AddFlags(kingpin.CommandLine, ":9150")
 
 	lastWriteTimestamp = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{

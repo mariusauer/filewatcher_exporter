@@ -29,9 +29,9 @@ CGO_ENABLED=0 go run . --dirs "/tmp:/var/log" --web.listen-address ":9100" --web
 ```
 
 - `--dirs` accepts a colon-separated list of directories to watch.
-- `--web.listen-address` controls the HTTP address (defaults to `:9000`).
+- `--web.listen-address` controls the HTTP address (defaults to `:9150`).
 - `--web.config.file` enables TLS/basic-auth/etc. through exporter-toolkit.
-- Metrics are exposed at `http://localhost:9000/metrics` unless you override the port.
+- Metrics are exposed at `http://localhost:9150/metrics` unless you override the port.
 
 ### Example web-config.yml
 
@@ -61,5 +61,5 @@ Tagging with the pattern `v*` triggers the GitHub Actions workflow defined in `.
 
 - `--dirs` (string, required): colon-separated directories to watch.
 - `--recursive` (bool, default `false`): whether to watch directories recursively.
-- `--web.listen-address` (string, default `:9000`): exporter listen address.
+- `--web.listen-address` (string, default `:9150`): exporter listen address.
 - `--web.config.file` (string): path to exporter-toolkit web config file.
