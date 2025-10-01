@@ -2,8 +2,6 @@ name: Release Linux tgz
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*'
 
@@ -11,26 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  build-main:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.25.1'
-          check-latest: true
-
-      - name: Build Linux binary
-        run: |
-          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ./...
-
   build-and-release:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
     env:
       BINARY_NAME: filewatcher-exporter
       OUTPUT_DIR: bin
@@ -42,7 +22,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.1'
+          go-version-file: 'go.mod'
           check-latest: true
 
       - name: Build Linux binary
