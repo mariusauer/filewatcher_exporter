@@ -1,9 +1,9 @@
 GOARCH ?= amd64
 BINARY := bin/filewatcher-exporter
 
-.PHONY: build-linux clean
+.PHONY: build clean
 
-build-linux:
+build:
 	@mkdir -p $(dir $(BINARY))
 	CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -o $(BINARY) .
 

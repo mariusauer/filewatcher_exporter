@@ -17,7 +17,7 @@ It serves metrics via the Prometheus exporter-toolkit, so you can enable TLS, ba
 - Go 1.24 or newer
 
 ```bash
-make build-linux
+make build
 ```
 
 ### Example web-config.yml
