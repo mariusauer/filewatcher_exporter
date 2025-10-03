@@ -20,19 +20,6 @@ It serves metrics via the Prometheus exporter-toolkit, so you can enable TLS, ba
 make build-linux
 ```
 
-This builds with `CGO_ENABLED=0` for a static binary. The binary is written to `bin/filewatcher-exporter` with `GOARCH` defaulting to `amd64`. Override by passing `GOARCH=arm64` (or another architecture) to `make`.
-
-### Run Locally
-
-```bash
-CGO_ENABLED=0 go run . --dirs "/tmp:/var/log" --web.listen-address ":9100" --web.config.file web-config.yml
-```
-
-- `--dirs` accepts a colon-separated list of directories to watch.
-- `--web.listen-address` controls the HTTP address (defaults to `:9150`).
-- `--web.config.file` enables TLS/basic-auth/etc. through exporter-toolkit.
-- Metrics are exposed at `http://localhost:9150/metrics` unless you override the port.
-
 ### Example web-config.yml
 
 ```yaml
