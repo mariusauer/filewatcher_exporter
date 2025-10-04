@@ -1,5 +1,5 @@
 GOARCH ?= amd64
-BINARY := bin/filewatcher-exporter
+BINARY := bin/filewatcher_exporter
 
 .PHONY: build clean
 

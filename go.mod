@@ -1,4 +1,4 @@
-module github.com/mariusauer/filewatcher-exporter
+module github.com/mariusauer/filewatcher_exporter
 
 go 1.24
 

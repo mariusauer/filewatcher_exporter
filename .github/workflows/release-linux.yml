@@ -12,9 +12,9 @@ jobs:
   build-and-release:
     runs-on: ubuntu-latest
     env:
-      BINARY_NAME: filewatcher-exporter
+      BINARY_NAME: filewatcher_exporter
       OUTPUT_DIR: bin
-      TAR_NAME: filewatcher-exporter_${{ github.ref_name }}_linux_amd64.tgz
+      TAR_NAME: filewatcher_exporter_${{ github.ref_name }}_linux_amd64.tgz
     steps:
       - name: Checkout source
         uses: actions/checkout@v4

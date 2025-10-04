@@ -1,6 +1,6 @@
-# filewatcher-exporter
+# filewatcher_exporter
 
-`filewatcher-exporter` monitors one or more directories for filesystem changes and exposes Prometheus metrics that capture the most recent write activity.
+`filewatcher_exporter` monitors one or more directories for filesystem changes and exposes Prometheus metrics that capture the most recent write activity.
 It serves metrics via the Prometheus exporter-toolkit, so you can enable TLS, basic auth, and other hardening features with the standard toolkit config.
 
 ## Features
