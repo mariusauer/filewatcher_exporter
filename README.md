@@ -40,10 +40,6 @@ file_last_write_timestamp_seconds{directory="/opt/test"} 1.759264902e+09
 file_last_write_timestamp_seconds{directory="/opt/test2"} 1.759264914e+09
 ```
 
-## Releasing
-
-Tagging with the pattern `v*` triggers the GitHub Actions workflow defined in `.github/workflows/release-linux.yml`.
-
 ## Flags
 
 - `--dirs` (string, required): colon-separated directories to watch.
